@@ -85,31 +85,33 @@ useEffect(() => {
 
 
 
-  const fetchComments = async (pageNumber: number, searchText: string) => {
-    try {
-      const searchParam = searchText ? `&searchText=${encodeURIComponent(searchText)}` : "";
-      const result = await getData(`/comment/${pageNumber}?${searchParam}`);
+const fetchComments = async (pageNumber: number, searchText: string) => {
+  try {
+    const searchParam = searchText ? `&searchText=${encodeURIComponent(searchText)}` : "";
+    const result = await getData(`/comment/${pageNumber}?${searchParam}`);
 
-      const formattedComments = (result?.comments || []).map((comment: any) => ({
-        nickname: comment.nickname,
-        content: comment.content,
-        createdAt: comment.createdAt,
-        userID: comment.userID || comment.user?.id,
-        commentID: comment.id,
-        topFactorResult: comment.topFactorResult,
-      }));
+    const formattedComments = (result?.comments || []).map((comment: any) => ({
+      nickname: comment.nickname,
+      content: comment.content,
+      createdAt: comment.createdAt,
+      userID: comment.userID || comment.user?.id,
+      commentID: comment.id,
+      topFactorResult: comment.topFactorResult,
+    }));
 
-      setCommentData(formattedComments);
-      setPages({
-        startPage: result.startPage,
-        endPage: result.endPage,
-        totalPages: result.totalPages,
-        currentPage: result.currentPage,
-      });
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
+    setCommentData(formattedComments); // 상태 업데이트
+    setPages({
+      startPage: result.startPage,
+      endPage: result.endPage,
+      totalPages: result.totalPages,
+      currentPage: result.currentPage,
+    });
+
+    console.log("Updated comments:", formattedComments); // 상태 업데이트 확인
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+  }
+};
 
   const handleSearch = () => {
     setPages({ ...pages, currentPage: 1 }); 
@@ -124,25 +126,29 @@ useEffect(() => {
 
  
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+    e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
     try {
       const commentPayload = {
         nickname: formData.nickname,
         password: formData.password,
         content: formData.content,
       };
-
+  
       let response;
       if (editCommentId !== null) {
+        // 댓글 수정
         response = await updateData(`/comment/update/${formData.userID}/${editCommentId}`, commentPayload);
         alert("댓글이 성공적으로 수정되었습니다.");
       } else {
+        // 새 댓글 작성
         response = await postData(`/comment/${id}`, commentPayload);
         alert("댓글이 성공적으로 작성되었습니다.");
       }
-
- 
+  
+      // 작성 후 댓글 목록을 다시 불러옴 (테이블에 반영되도록)
       await fetchComments(pages.currentPage, searchText);
+  
+      // 폼 초기화
       setEditCommentId(null);
       setFormData({
         userID: id || "",
@@ -158,7 +164,6 @@ useEffect(() => {
 
 
 
-
   function handleEditClick(comment: Comment) {
     setFormData({
       userID: comment.userID,
@@ -169,23 +174,23 @@ useEffect(() => {
     setEditCommentId(comment.commentID);
     window.scrollTo(0, 0);
   }
-
-  async function handleDelete(userId: string | undefined, commentId: number | undefined) {
+  async function handleDelete(userId: string, commentId: number) {
     if (!userId || !commentId) {
       alert("올바르지 않은 댓글 ID 또는 사용자 ID입니다.");
       return;
     }
-
+  
     const password = prompt("댓글 삭제를 위해 비밀번호를 입력하세요:");
     if (!password || password.trim() === "") {
       alert("비밀번호를 입력해주세요.");
       return;
     }
-
+  
     try {
       const response = await deleteData(`/comment/delete/${userId}/${commentId}`, { password });
       if (response) {
-        setCommentData(commentData.filter((comment) => comment.commentID !== commentId));
+        // 댓글 삭제 후에 최신 댓글 목록을 다시 가져와서 상태를 업데이트
+        await fetchComments(pages.currentPage, searchText);
         alert("댓글이 성공적으로 삭제되었습니다.");
       } else {
         alert("댓글 삭제에 실패했습니다. 비밀번호를 확인하세요.");
