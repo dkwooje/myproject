@@ -144,6 +144,10 @@ public class OuterDataService {
                     result.getShadowhunter() + result.getReaper() + result.getDeathblade() + result.getSouleater() +
                     result.getAeromancer() + result.getArtist();
 
+            if(total == 0){
+                total =1;
+            }
+
             resData.add(new OuterDataDto("버서커", result.getBerserker(), total, "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/berserker.png"));
             resData.add(new OuterDataDto("디스트로이어", result.getDestroyer(), total, "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/destroyer.png"));
             resData.add(new OuterDataDto("워로드", result.getGunlancer(), total, "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/warlord.png"));
