@@ -7,7 +7,7 @@
 
 
 ![스크린샷(34)](https://github.com/user-attachments/assets/8729e143-b897-492e-959b-9cf9966ccde1)
-![스크린샷(37)](https://github.com/user-attachments/assets/2fec5228-0c33-4d4d-9af5-f7858d149c31)
+
 
 intelliJ로 만든 백엔드의 controller 부분입니다.
 mapping어노테이션을 활용하여 URL를 통하여 데이터를 받도록 설정해 줍니다. 
