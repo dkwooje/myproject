@@ -31,6 +31,24 @@ POSTMAN 툴은 URL 경로를 통해 JSON데이터를 보낼 수 있습니다.
 
 
 
+다음으로는 프론트 엔드를 소개 시켜드립니다. 
+프론트엔드의 프레임워크는 React, 도구는 visual studio code, 언어는 javascript그리고 node.js를 사용하였습니다.
+
+
+![스크린샷(49)](https://github.com/user-attachments/assets/2e48dc38-bdb8-4237-a077-7b7458162862)
+router를 통해 경로를 설정합니다. 기본 경로는 http://localhost:3000/ 으로 설정하였습니다. 백엔드에서 보내는는 URL주소와 같습니다.
+
+
+
+![스크린샷(47)](https://github.com/user-attachments/assets/ac092439-b999-4a9c-86fb-d7ac19473b0b)
+![스크린샷(48)](https://github.com/user-attachments/assets/8d38fc5f-3a59-4dcd-b137-a4c79c6b9ba8)
+또한 async를 사용해 비동기 방식으로 백엔드의 mapping을 통해 데이터를 전달합니다.
+
+![스크린샷(50)](https://github.com/user-attachments/assets/72a41075-3fcf-42a1-b523-51b22b59f572)
+전달한 각 기능과 실제 URL 주소에 따라 그리고 데이터베이스로부터 되돌려 받는 데이터가 잘 작동됩니다.
+
+
+
 
 
 
