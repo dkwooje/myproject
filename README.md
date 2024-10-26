@@ -26,6 +26,14 @@ POSTMAN 툴은 URL 경로를 통해 JSON데이터를 보낼 수 있습니다.
 ![스크린샷(40)](https://github.com/user-attachments/assets/b07cdd21-d598-422b-8991-acd12dac89f9)
 잘 처리가 되면 위와 같이 데이터베이스(MYSQL,AWS RDS)에 저장이 됩니다.
 
+![스크린샷(44)](https://github.com/user-attachments/assets/b77b661f-50c9-4415-a759-30921dc8aef0)
+데이터베이스에 데이터가 잘 처리가 되었다면 정상적인 백엔드의 기능을 프론트 엔드로 보내줍니다.
+
+
+
+
+
+
 
 
 
